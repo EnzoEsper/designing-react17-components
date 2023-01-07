@@ -22,6 +22,16 @@ const SpeakerImage = ({ id, first, last }) => {
   );
 };
 
+const SpeakerFavorite = ({ favorite }) => {
+  return (
+    <div className="action padB1">
+      <span>
+        <i className={favorite ? "fa fa-star orange" : "fa fa-star-o orange"} /> Favorite{" "}
+      </span>
+    </div>
+  );
+};
+
 const SpeakerDemographics = ({ first, last, bio, twitterHandle, company, favorite }) => {
   return (
     <div className="speaker-info">
@@ -30,6 +40,7 @@ const SpeakerDemographics = ({ first, last, bio, twitterHandle, company, favorit
           {first} {last}
         </h3>
       </div>
+      <SpeakerFavorite favorite={favorite} />
       <div>
         <p className="card-description">{bio}</p>
         <div className="social d-flex flex-row mt-4">
