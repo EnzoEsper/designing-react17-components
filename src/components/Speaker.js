@@ -47,7 +47,7 @@ const SpeakerDemographics = ({ first, last, bio, twitterHandle, company, favorit
   );
 };
 
-const Speaker = ({ speaker }) => {
+const Speaker = ({ speaker, showSessions }) => {
   const { id, first, last, sessions } = speaker;
   return (
     <div key={id} className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
@@ -55,7 +55,7 @@ const Speaker = ({ speaker }) => {
         <SpeakerImage id={id} first={first} last={last} />
         <SpeakerDemographics {...speaker} />
       </div>
-      <Sessions sessions={sessions} />
+      {showSessions && <Sessions sessions={sessions} />}
     </div>
   );
 };
