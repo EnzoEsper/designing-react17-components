@@ -28,11 +28,55 @@ const useRequestDelay = (delayTime = 2000, initialData = []) => {
     delayFunc();
   }, []);
 
-  const updateRecord = (recordUpdated, doneCallback) => {
+  const updateRecord = (record, doneCallback) => {
     const originalRecords = [...data];
     const newRecords = data.map((rec) => {
-      return rec.id === recordUpdated.id ? recordUpdated : rec;
+      return rec.id === record.id ? record : rec;
     });
+
+    const delayFunc = async () => {
+      try {
+        setData(newRecords);
+        await delay(delayTime);
+        if (doneCallback) {
+          doneCallback();
+        }
+      } catch (error) {
+        console.log("error thrown in updateRecord delayfunc", error);
+        if (doneCallback) {
+          doneCallback();
+        }
+        setData(originalRecords);
+      }
+    };
+    delayFunc();
+  };
+
+  const insertRecord = (record, doneCallback) => {
+    const originalRecords = [...data];
+    const newRecords = [record, ...data];
+
+    const delayFunc = async () => {
+      try {
+        setData(newRecords);
+        await delay(delayTime);
+        if (doneCallback) {
+          doneCallback();
+        }
+      } catch (error) {
+        console.log("error thrown in updateRecord delayfunc", error);
+        if (doneCallback) {
+          doneCallback();
+        }
+        setData(originalRecords);
+      }
+    };
+    delayFunc();
+  };
+
+  const deleteRecord = (record, doneCallback) => {
+    const originalRecords = [...data];
+    const newRecords = data.filter((rec) => rec.id !== record.id);
 
     const delayFunc = async () => {
       try {
@@ -57,6 +101,8 @@ const useRequestDelay = (delayTime = 2000, initialData = []) => {
     requestStatus,
     errorMessage,
     updateRecord,
+    insertRecord,
+    deleteRecord,
   };
 };
 

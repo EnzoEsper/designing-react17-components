@@ -6,7 +6,14 @@ import { data } from "../../SpeakerData";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 
 const SpeakersList = () => {
-  const { requestStatus, errorMessage, data: speakersData, updateRecord } = useRequestDelay(2000, data);
+  const {
+    requestStatus,
+    errorMessage,
+    data: speakersData,
+    updateRecord,
+    insertRecord,
+    deleteRecord,
+  } = useRequestDelay(2000, data);
   const { showSessions } = useContext(SpeakerFilterContext);
 
   const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
@@ -44,7 +51,14 @@ const SpeakersList = () => {
             })
             .map((speaker) => {
               return (
-                <Speaker key={speaker.id} speaker={speaker} showSessions={showSessions} updateRecord={updateRecord} />
+                <Speaker
+                  key={speaker.id}
+                  speaker={speaker}
+                  showSessions={showSessions}
+                  updateRecord={updateRecord}
+                  insertRecord={insertRecord}
+                  deleteRecord={deleteRecord}
+                />
               );
             })}
         </div>
