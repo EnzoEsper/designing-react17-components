@@ -44,14 +44,7 @@ const SpeakersList = () => {
             })
             .map((speaker) => {
               return (
-                <Speaker
-                  key={speaker.id}
-                  speaker={speaker}
-                  showSessions={showSessions}
-                  onFavoriteToggle={(doneCallback) =>
-                    updateRecord({ ...speaker, favorite: !speaker.favorite }, doneCallback)
-                  }
-                />
+                <Speaker key={speaker.id} speaker={speaker} showSessions={showSessions} updateRecord={updateRecord} />
               );
             })}
         </div>
