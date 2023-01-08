@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Speaker from "./Speaker";
 import ReactPlaceHolder from "react-placeholder";
 import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
 import { data } from "../../SpeakerData";
+import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 
-const SpeakersList = ({ showSessions }) => {
+const SpeakersList = () => {
   const { requestStatus, errorMessage, data: speakersData, updateRecord } = useRequestDelay(2000, data);
+  const { showSessions } = useContext(SpeakerFilterContext);
 
   if (requestStatus === REQUEST_STATUS.FAILURE) {
     return (
