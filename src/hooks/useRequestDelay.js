@@ -28,22 +28,7 @@ const useRequestDelay = (delayTime = 2000, initialData = []) => {
     delayFunc();
   }, []);
 
-  // const onFavoriteToggle = (id) => {
-  //   const speakerRecPrevious = speakersData.find((rec) => rec.id === id);
-
-  //   const speakerRecUpdated = {
-  //     ...speakerRecPrevious,
-  //     favorite: !speakerRecPrevious.favorite,
-  //   };
-
-  //   const speakersDataNew = speakersData.map((rec) => {
-  //     return rec.id === id ? speakerRecUpdated : rec;
-  //   });
-
-  //   setSpeakersData(speakersDataNew);
-  // };
-
-  const updateRecord = (recordUpdated) => {
+  const updateRecord = (recordUpdated, doneCallback) => {
     const newRecords = data.map((rec) => {
       return rec.id === recordUpdated.id ? recordUpdated : rec;
     });
@@ -51,6 +36,9 @@ const useRequestDelay = (delayTime = 2000, initialData = []) => {
     const delayFunc = async () => {
       try {
         await delay(delayTime);
+        if (doneCallback) {
+          doneCallback();
+        }
         setData(newRecords);
       } catch (error) {
         console.log("error thrown in updateRecord delayfunc", error);
